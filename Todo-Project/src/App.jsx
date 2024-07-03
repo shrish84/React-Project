@@ -9,6 +9,7 @@ function App() {
   const [projectsState, setProjectsState] = useState({
     selectedProjectId: undefined,
     projects: [],
+    tasks: [],
   });
 
   const handleStartAddProject = () => {
@@ -32,7 +33,7 @@ function App() {
         projects: [...prevState.projects, newProject],
       };
     });
-  };//when inputs are validated and we click save button and save the input
+  }; //when inputs are validated and we click save button and save the input
 
   const handleCancelProject = () => {
     setProjectsState((prevState) => {
@@ -57,14 +58,38 @@ function App() {
     (project) => project.id === projectsState.selectedProjectId
   );
 
-  const handleDelete=()=>{
+  const handleDelete = (id) => {
     setProjectsState((prevState) => {
       return {
         ...prevState,
         selectedProjectId: undefined,
+        projects: prevState.projects.filter((item) => item.id !== id), //filter out the project with the given id
       };
     });
-  }
+  };
+
+  const handleAddTask = (text) => {
+    setProjectsState((prevState) => {
+      const newTask = {
+        text: text,
+        projectId: prevState.selectedProjectId,
+        TaskId: Math.random(),
+      };
+      return {
+        ...prevState, //to copy existing data
+        tasks: [...prevState.tasks, newTask],
+      };
+    });
+  }; //we send task here and than collect it in tasks array
+
+  const handleDeleteTask = (id) => {
+    setProjectsState((prevState) => {
+      return {
+        ...prevState,
+        tasks: prevState.tasks.filter((task) => task.TaskId !== id), //filter out the project with the given id
+      };
+    });
+  };
 
   console.log(projectsState);
 
@@ -81,8 +106,15 @@ function App() {
       {projectsState.selectedProjectId === undefined && (
         <NoProjectSelected onStartAddProject={handleStartAddProject} />
       )}
+
       {projectsState.selectedProjectId && (
-        <SelectedProject project={selectedProject} onDelete={handleDelete}/>
+        <SelectedProject
+          project={selectedProject}
+          onDelete={handleDelete}
+          onAddTask={handleAddTask}
+          onDeleteTask={handleDeleteTask}
+          tasks={projectsState.tasks}
+        />
       )}
     </main>
   );
