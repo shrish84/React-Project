@@ -10,11 +10,11 @@ function App() {
 
   function handleAddItemToCart(id) {
     setShoppingCart((prevShoppingCart) => {
-      const updatedItems = [...prevShoppingCart.items];
+      const updatedItems = [...prevShoppingCart.items];//Copying the current items array from shoppingCart
 
       const existingCartItemIndex = updatedItems.findIndex(
         (cartItem) => cartItem.id === id
-      );
+      );//returns the index of first element in an array which satisfies the provided testing function
       const existingCartItem = updatedItems[existingCartItemIndex];
 
       if (existingCartItem) {
@@ -31,7 +31,7 @@ function App() {
           price: product.price,
           quantity: 1,
         });
-      }
+      }//when no element is present
 
       return {
         items: updatedItems,

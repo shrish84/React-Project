@@ -16,3 +16,4 @@ export default function Shop({ onAddItemToCart }) {
     </section>
   );
 }
+//parent for Product component

@@ -29,3 +29,4 @@ const CartModal = forwardRef(function Modal(
 });
 
 export default CartModal;
+//button and title displayed here
