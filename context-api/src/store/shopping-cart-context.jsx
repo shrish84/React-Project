@@ -4,10 +4,10 @@ import { createContext } from "react"; //it is a createContext function
 
 export const CartContext = createContext({
   items: [],
-  addItemToCart: () => {},
-  updateItemQuantity: () => {},
+  handleAddItemToCart: () => {},
+  handleUpdateCartItemQuantity: () => {},
 }); //here we call that function
-//for autocompletion we use these key value pairs here they're only for name sake they aren't used
+//for autocompletion we use these key value pairs here they're only for name sake they aren't used, CartContext is the context object
 
 export default function CartContextProvider({children}){
   const [shoppingCart, setShoppingCart] = useState({
@@ -70,11 +70,11 @@ export default function CartContextProvider({children}){
     });
   }
 
-  const ctxValue= {
-    items: shoppingCart.items,
-    addItemToCart: handleAddItemToCart,
-    updateItemQuantity: handleUpdateCartItemQuantity
-  }
+  // const ctxValue= {
+  //   items: shoppingCart.items,
+  //   addItemToCart: handleAddItemToCart,
+  //   updateItemQuantity: handleUpdateCartItemQuantity
+  // }//names we use for auto completion
   
-  return<CartContext.Provider value={ctxValue}>{children}</CartContext.Provider>
+  return<CartContext.Provider value={{items:shoppingCart.items, handleAddItemToCart, handleUpdateCartItemQuantity}}>{children}</CartContext.Provider>
 }

@@ -9,7 +9,7 @@ export default function Product({
   description,
 })
 {
-  const {addItemToCart}= useContext(CartContext);
+  const {handleAddItemToCart}= useContext(CartContext);
   return (
     <article className="product">
       <img src={image} alt={title} />
@@ -20,7 +20,7 @@ export default function Product({
           <p>{description}</p>
         </div>
         <p className='product-actions'>
-          <button onClick={() => addItemToCart(id)}>Add to Cart</button>
+          <button onClick={() => handleAddItemToCart(id)}>Add to Cart</button>
         </p>
       </div>
     </article>
