@@ -74,7 +74,7 @@ export default function CartContextProvider({children}){
   //   items: shoppingCart.items,
   //   addItemToCart: handleAddItemToCart,
   //   updateItemQuantity: handleUpdateCartItemQuantity
-  // }//names we use for auto completion
+  // }//names we use for auto completion, names here and while creating context must be same
   
   return<CartContext.Provider value={{items:shoppingCart.items, handleAddItemToCart, handleUpdateCartItemQuantity}}>{children}</CartContext.Provider>
 }
