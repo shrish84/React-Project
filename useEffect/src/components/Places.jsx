@@ -18,3 +18,4 @@ export default function Places({ title, places, fallbackText, onSelectPlace }) {
     </section>
   );
 }
+//onClick triggered when we click that image button

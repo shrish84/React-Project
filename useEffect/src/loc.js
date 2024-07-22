@@ -26,3 +26,10 @@ export function sortPlacesByDistance(places, lat, lon) {
   });
   return sortedPlaces;
 }
+export function write(){
+  console.log("write function..");
+}//named function export 
+
+export default "abcdee";//value
+
+export let apiKey= "blabhah";//named value export
