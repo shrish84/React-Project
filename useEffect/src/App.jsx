@@ -4,13 +4,18 @@ import { AVAILABLE_PLACES } from "./data.js";
 import Modal from "./components/Modal.jsx";
 import DeleteConfirmation from "./components/DeleteConfirmation.jsx";
 import logoImg from "./assets/logo.png";
-import { sortPlacesByDistance, write, apiKey } from "./loc.js";
-import api from "./loc.js";
+import { sortPlacesByDistance } from "./loc.js";
+// import api from "./loc.js";
+
+const storedIds = JSON.parse(localStorage.getItem('selectedPlaces')) || [];
+const storedPlaces = storedIds.map((id)=>
+      AVAILABLE_PLACES.find((place)=> place.id === id)
+);// we only want to execute this code once so we brought it outside of component
 
 function App() {
   const modal = useRef();
   const selectedPlace = useRef();
-  const [pickedPlaces, setPickedPlaces] = useState([]);
+  const [pickedPlaces, setPickedPlaces] = useState(storedPlaces);
   const [availablePlaces, setAvailablePlaces] = useState([]);
 
   useEffect(() => {
@@ -23,10 +28,12 @@ function App() {
       setAvailablePlaces(sortedPlaces);
     }); //once the location is determined the function inside will be executed, the browser gives user's location position
   }, []);
+
   //this operation of getting user's location might take some time, browser operation takes some async amount of time
-  write();
-  console.log(api);
-  console.log(apiKey);
+  // write();
+  // console.log(api);
+  // console.log(apiKey);
+
   function handleStartRemovePlace(id) {
     modal.current.open();
     selectedPlace.current = id;
@@ -60,7 +67,13 @@ function App() {
       prevPickedPlaces.filter((place) => place.id !== selectedPlace.current)
     );
     modal.current.close();
-  }
+
+    const storedIds = JSON.parse(localStorage.getItem('selectedPlaces'))||[];//when we need to change something in storedIds then we need to get them first
+    localStorage.setItem(
+      'selectedPlaces',
+      JSON.stringify(storedIds.filter((id)=> id !== selectedPlace.current))
+    )
+  }//if the condition yields false then that id element will be filtered out 
 
   return (
     <>
