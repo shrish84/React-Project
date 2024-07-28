@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import Places from "./components/Places.jsx";
 import { AVAILABLE_PLACES } from "./data.js";
 import Modal from "./components/Modal.jsx";
@@ -7,10 +7,10 @@ import logoImg from "./assets/logo.png";
 import { sortPlacesByDistance } from "./loc.js";
 // import api from "./loc.js";
 
-const storedIds = JSON.parse(localStorage.getItem('selectedPlaces')) || [];
-const storedPlaces = storedIds.map((id)=>
-      AVAILABLE_PLACES.find((place)=> place.id === id)
-);// we only want to execute this code once so we brought it outside of component
+const storedIds = JSON.parse(localStorage.getItem("selectedPlaces")) || [];
+const storedPlaces = storedIds.map((id) =>
+  AVAILABLE_PLACES.find((place) => place.id === id)
+); // we only want to execute this code once so we brought it outside of component
 
 function App() {
   const modal = useRef();
@@ -62,18 +62,18 @@ function App() {
     //we store in string format in the browser so we use stringify
   } //find returns the element which satisfies the condition
 
-  function handleRemovePlace() {
+  const handleRemovePlace= useCallback(function handleRemovePlace() {
     setPickedPlaces((prevPickedPlaces) =>
       prevPickedPlaces.filter((place) => place.id !== selectedPlace.current)
     );
     modal.current.close();
 
-    const storedIds = JSON.parse(localStorage.getItem('selectedPlaces'))||[];//when we need to change something in storedIds then we need to get them first
+    const storedIds = JSON.parse(localStorage.getItem("selectedPlaces")) || []; //when we need to change something in storedIds then we need to get them first
     localStorage.setItem(
-      'selectedPlaces',
-      JSON.stringify(storedIds.filter((id)=> id !== selectedPlace.current))
-    )
-  }//if the condition yields false then that id element will be filtered out 
+      "selectedPlaces",
+      JSON.stringify(storedIds.filter((id) => id !== selectedPlace.current))
+    );
+  }) //if the condition yields false then that id element will be filtered out
 
   return (
     <>

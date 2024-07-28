@@ -17,10 +17,11 @@ const Modal = forwardRef(function Modal({ children }, ref) {
 
   return createPortal(
     <dialog className="modal" ref={dialog}>
-      {children}
+      {open? children: null}
     </dialog>,
     document.getElementById('modal')
   );
 });
 
 export default Modal;
+//we put condition here when pic is clicked then modal open is triggered and the timer will set only once 
